@@ -1,1 +1,1 @@
-Hodowla Chihuahua FCI w POlsce
+Hodowla Chihuahua FCI w Polsce
