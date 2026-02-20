@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dallila Line | Hodowla psów rasowych</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Montserrat',sans-serif;
+background:linear-gradient(135deg,#0f0f12,#1a1a1f,#141418);
+color:#e8d8b9;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+gap:40px;
+padding:20px 0;
+z-index:1000;
+}
+
+nav a{
+color:#d4c09a;
+text-decoration:none;
+letter-spacing:2px;
+font-size:13px;
+cursor:pointer;
+transition:.3s;
+}
+
+nav a:hover{color:#f5e6c8;}
+
+section{
+display:none;
+min-height:100vh;
+padding:160px 10% 80px;
+opacity:0;
+transform:translateY(40px);
+filter:blur(4px);
+transition:opacity .7s ease, transform .7s ease, filter .7s ease;
+}
+
+section.active{
+display:block;
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
+}
+
+.section-title{
+font-family:'Cinzel',serif;
+font-size:30px;
+text-align:center;
+margin-bottom:50px;
+background:linear-gradient(45deg,#b8895b,#f5e6c8);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* HERO */
+.hero{
+height:85vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-family:'Cinzel',serif;
+font-size:55px;
+letter-spacing:6px;
+background:linear-gradient(45deg,#b8895b,#f5e6c8,#b8895b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:20px;
+}
+
+.contact-info{
+color:#d4c09a;
+line-height:1.8;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:40px;
+}
+
+
+
+
+.card{
+background:#1e1e24;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 30px 60px rgba(184,137,91,0.3);
+}
+
+.card img{
+width:100%;
+height:280px;
+object-fit:cover;
+}
+
+.card div{
+padding:20px;
+text-align:center;
+}
+
+/* GOLD PARTICLES */
+#goldParticles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+pointer-events:none;
+}
+
+footer{
+background:#000;
+padding:25px;
+text-align:center;
+color:#b8895b;
+}
+
+
+/* ABOUT BACKGROUND IMAGE */
+.about-section{
+position:relative;
+
+}
+.about-section::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.65); /* przyciemnienie */
+backdrop-filter:blur(2px);
+z-index:0;
+}
+
+.about-section h2,
+.about-section p{
+position:relative;
+z-index:1;
+
+}
+
+/* Kontener siatki szczeniąt */
+.puppy-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* mniejsze karty */
+  gap: 15px;
+  justify-content: center; /* wyśrodkowanie siatki */
+  max-width: 800px;        /* ograniczenie szerokości sekcji */
+  margin: 30px auto 0 auto; /* wyśrodkowanie kontenera + margines górny */
+}
+
+.puppy-card{
+  background:#1e1e24;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.4);
+  transition:.3s;
+  width:120px;  /* węższa karta */
+}
+
+.puppy-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 35px rgba(184,137,91,0.3);
+}
+
+.puppy-card img{
+  width:100%;
+  height:120px; /* mniejszy obrazek */
+  object-fit:cover;
+}
+
+.puppy-card div{
+  padding:8px;
+  text-align:center;
+  font-size:13px; /* mniejszy tekst */
+}
+</style>
+</head>
+
+<body>
+<canvas id="goldParticles"></canvas>
+
+<nav>
+<a onclick="showSection('home')" data-pl="Strona Główna" data-en="Home">Strona Główna</a>
+<a onclick="showSection('about')" data-pl="O Hodowli" data-en="About">O Hodowli</a>
+<a onclick="showSection('dogs')" data-pl="Nasze Psy" data-en="Our Dogs">Nasze Psy</a>
+<a onclick="showSection('puppies')" data-pl="Szczenięta" data-en="Puppies">Szczenięta</a>
+<a onclick="toggleLanguage()">PL / EN</a>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+<div class="hero">
+<h1>DALLILA LINE</h1>
+<div class="contact-info">
+<span data-pl="Telefon: +48 600 074 497" data-en="Phone: +48 600 074 497">Telefon: +48 600 074 497</span><br>
+<span data-pl="Email: annamaslanka4@gmail.com" data-en="annamaslanka4@gmail.com">Email: annamaslanka4@gmail.com</span><br>
+<span data-pl="Lokalizacja: Polska Bielsko-Biała" data-en="Location: Poland Bielsko-Biała">Lokalizacja: Polska Bielsko-Biała</span>
+</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section" data-bg="psy.jpg">
+  <h2 class="section-title" data-pl="O Hodowli" data-en="About Our Kennel">O Hodowli</h2>
+  <p data-pl="Nasza hodowla to pasja, miłość i najwyższa jakość. Psy wychowywane są w domowej atmosferze, socjalizowane i objęte najlepszą opieką weterynaryjną."
+     data-en="Our kennel is passion, love and top quality. Dogs are raised in a home environment, well socialized and under the best veterinary care.">
+    Nasza hodowla to pasja, miłość i najwyższa jakość. Psy wychowywane są w domowej atmosferze, socjalizowane i objęte najlepszą opieką weterynaryjną.
+  </p>
+</section>
+
+<!-- OUR DOGS -->
+<section id="dogs">
+<h2 class="section-title">Nasze Psy</h2>
+<div class="grid">
+
+<div class="card"><img src="pies1.jpg"><div>Czoko Lady</div></div>
+<div class="card"><img src="pies2.jpg"><div>Valeo Valery Frida</div></div>
+<div class="card"><img src="pies3.jpg"><div>Miss Charisma</div></div>
+<div class="card"><img src="pies4.jpg"><div>Daisy</div></div>
+<div class="card"><img src="pies5.jpg"><div>Dejla 5</div></div>
+<div class="card"><img src="pies6.jpg"><div>Luna</div></div>
+<div class="card"><img src="pies7.jpg"><div>Anabell</div></div>
+<div class="card"><img src="pies8.jpg"><div>Camelia's</div></div>
+<div class="card"><img src="cynamonka.jfif"><div>Charlotte</div></div>
+<div class="card"><img src="pies10.jpg"><div>Miss Izel</div></div>
+<div class="card"><img src="pies11.jpg"><div>Izabel</div></div>
+<div class="card"><img src="dexxter.jfif"><div>Dexter</div></div>
+<div class="card"><img src="pies13.jpg"><div>Never</div></div>
+<div class="card"><img src="roki.jfif"><div>Assawa's Collins</div></div>
+<div class="card"><img src="quallien.jfif"><div>Quallien</div></div>
+<div class="card"><img src="pies16.jpg"><div>Love hearts chiho mafia</div></div>
+<div class="card"><img src="charies.jfif"><div>Charies</div></div>
+<div class="card"><img src="pies18.jpg"><div>Pies 18</div></div>
+<div class="card"><img src="pies19.jpg"><div>Pies 19</div></div>
+<div class="card"><img src="pies20.jpg"><div>Pies 20</div></div>
+<div class="card"><img src="pies21.jpg"><div>Pies 21</div></div>
+<div class="card"><img src="pies22.jpg"><div>Pies 22</div></div>
+<div class="card"><img src="pies23.jpg"><div>Pies 23</div></div>
+
+</div>
+</section>
+
+<section id="puppies">
+  <h2 class="section-title">Szczenięta</h2>
+  <p>Aktualne mioty dostępne na zapytanie.</p>
+
+  <div class="puppy-grid">
+    <div class="puppy-card">
+      <img src="SZCZENIAK.jfif" alt="Ares">
+      <div>Ares
+        Sliczny chlopiec urodzony .... Umaszczenie Białe z czarnymi znaczeniami
+      </div>
+    </div>
+    <div class="puppy-card">
+      <img src="SZCZENIAK2.jfif" alt="">
+      <div></div>
+    </div>
+    <!-- Dodaj więcej szczeniąt jeśli chcesz -->
+  </div>
+</section>
+
+
+
+
+
+
+<footer>
+© 2026 Dallila Line | HODOWLA PSÓW RASOWYCH CHIHUAHUA
+</footer>
+
+<script>
+function showSection(id){
+const current = document.querySelector("section.active");
+
+if(current){
+current.classList.remove("active");
+
+setTimeout(()=>{
+document.querySelectorAll("section").forEach(s=>s.style.display="none");
+const next = document.getElementById(id);
+next.style.display="block";
+
+setTimeout(()=>{
+next.classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+},50);
+
+},500);
+}
+}
+
+let lang="pl";
+function toggleLanguage(){
+lang=lang==="pl"?"en":"pl";
+document.documentElement.lang=lang;
+document.querySelectorAll("[data-pl]").forEach(el=>{
+el.textContent=el.getAttribute("data-"+lang);
+});
+}
+
+/* GOLD PARTICLES */
+const canvas = document.getElementById("goldParticles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<80;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+radius:Math.random()*2,
+speed:Math.random()*0.5+0.2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.y -= p.speed;
+if(p.y < 0){
+p.y = canvas.height;
+p.x = Math.random()*canvas.width;
+}
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+ctx.fillStyle="rgba(184,137,91,0.4)";
+ctx.fill();
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize",()=>{
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+});
+
+// Ustaw tło sekcji O Hodowli
+document.addEventListener("DOMContentLoaded", function() {
+  const aboutSection = document.querySelector('.about-section');
+  const bgImage = aboutSection.getAttribute('data-bg');
+  aboutSection.style.backgroundImage = `url('${bgImage}')`;
+  aboutSection.style.backgroundSize = 'cover';
+  aboutSection.style.backgroundPosition = 'center';
+  aboutSection.style.backgroundRepeat = 'no-repeat';
+});
+
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const aboutSection = document.querySelector('.about-section');
+  const bgImage = aboutSection.getAttribute('data-bg');
+  aboutSection.style.backgroundImage = `url('${bgImage}')`;
+  aboutSection.style.backgroundSize = 'cover';
+  aboutSection.style.backgroundPosition = 'center';
+  aboutSection.style.backgroundRepeat = 'no-repeat';
+});
+</script>
+</body>
+</html>
